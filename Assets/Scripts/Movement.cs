@@ -23,29 +23,28 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        PlayerJump();
-        PlayerMove();
+        
     }
 
-    private void PlayerMove()
+    public void PlayerMove()
     {
-        //h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
+        h = Input.GetAxisRaw("Horizontal");
         if (v != 0)
         {
-            transform.position += transform.forward * Time.deltaTime * speed * v;
+            transform.position += transform.forward * (Time.deltaTime * speed * v);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (h != 0)
         {
-            transform.Rotate(new Vector3(0,-rotationSpeed* Time.deltaTime, 0));
+            transform.Rotate(new Vector3(0,h * rotationSpeed* Time.deltaTime, 0));
         }
-        if (Input.GetKey(KeyCode.D))
+        /*if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(new Vector3(0,rotationSpeed * Time.deltaTime, 0));
-        }
+        }*/
     }
 
-    private void PlayerJump()
+    public void PlayerJump()
     {
         if(onGround)
         {
@@ -61,7 +60,7 @@ public class Movement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "environment")
+        if (collision.gameObject.CompareTag("environment"))
         {
             onGround = true;
         }

@@ -12,6 +12,7 @@ public class PlayerFollow : MonoBehaviour
     public bool lookAtPlayer = false;
     public bool rotateAroundPlayer = true;
     public float rotationsSpeed = 5;
+    
 
     private void Start()
     {

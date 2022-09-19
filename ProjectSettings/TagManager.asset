@@ -6,6 +6,7 @@ TagManager:
   tags:
   - environment
   - bullet
+  - bulletPickup
   layers:
   - Default
   - TransparentFX
