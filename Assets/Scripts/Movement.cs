@@ -24,11 +24,15 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         
+        PlayerMove();
+        PlayerJump();
     }
 
     public void PlayerMove()
     {
-        v = Input.GetAxisRaw("Vertical");
+        {
+            v = Input.GetAxisRaw("Vertical");
+        }
         h = Input.GetAxisRaw("Horizontal");
         if (v != 0)
         {
@@ -38,13 +42,9 @@ public class Movement : MonoBehaviour
         {
             transform.Rotate(new Vector3(0,h * rotationSpeed* Time.deltaTime, 0));
         }
-        /*if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(new Vector3(0,rotationSpeed * Time.deltaTime, 0));
-        }*/
     }
 
-    public void PlayerJump()
+    private void PlayerJump()
     {
         if(onGround)
         {

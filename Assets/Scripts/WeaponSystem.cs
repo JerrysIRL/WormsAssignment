@@ -6,19 +6,24 @@ using UnityEngine;
 public class WeaponSystem : MonoBehaviour
 {
     [SerializeField] private float bulletSpeed;
+    [SerializeField]private int throwY;
+    [SerializeField]private int throwZ;
     public GameObject bullet;
     public GameObject pistol;
-    public GameObject rifle;
+    public GameObject grenade;
+    public GameObject grenadePrefab;
     private bool _pistolIsActive = false;
-    private bool _rifleIsActive = false;
+    private bool grenadeIsActive = false;
+    
     public int bullets = 10;
+    public int grenades = 2;
     
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _rifleIsActive = false;
-            rifle.SetActive(false);
+            grenadeIsActive = false;
+            grenade.SetActive(false);
             
             _pistolIsActive = true;
             pistol.SetActive(true);
@@ -29,11 +34,11 @@ public class WeaponSystem : MonoBehaviour
             _pistolIsActive = false;
             pistol.SetActive(false);
             
-            _rifleIsActive = true;
-            rifle.SetActive(true);
+            grenadeIsActive = true;
+            grenade.SetActive(true);
         }
 
-        if (_rifleIsActive || _pistolIsActive)
+        if (_pistolIsActive)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && bullets > 0)
             {
@@ -42,7 +47,17 @@ public class WeaponSystem : MonoBehaviour
                 bullets--;
             }
         }
+
+        if (grenadeIsActive)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse1) && grenades > 0)
+            {
+                GameObject frag = Instantiate(grenadePrefab, gameObject.transform.position, transform.rotation);
+                frag.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,throwY, throwZ ));
+                grenades--;
+            }
+        }
         
     }
 
-}
+}   

@@ -5,36 +5,35 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    [SerializeField] private PlayerTurn playerOne;
+    [SerializeField] private PlayerTurn playerTwo;
     private static TurnManager instance;
-    public float timeRemaining = 10;
-    public List<GameObject> wormList = new();
-
     
-    private void Update()
-    {
-        wormList[0].GetComponent<Movement>().PlayerMove();
-        if (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
-        }
-
-        else if (timeRemaining <= 0)
-        {
-            wormList[1].GetComponent<Movement>().PlayerMove(); 
-        }
-    }
+    
 
     private void Awake()
-    {
-        if (instance == null)
         {
-            instance = this;
+            if (instance == null)
+            {
+                instance = this;
+            }
+            else
+            {
+                Destroy(this.gameObject);
+            }
         }
-        else
+
+    private void Update()
+    {
+        
+        if(Input.GetKeyDown(KeyCode.T))
         {
-            Destroy(this.gameObject);
+            
         }
     }
+    
+    
+    
 
     public static TurnManager GetInstance()
     {

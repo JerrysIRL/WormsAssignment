@@ -6,6 +6,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     private Rigidbody rb;
+    private int bulletDamage = 25;
 
     private void Awake()
     {
@@ -14,7 +15,12 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destructuble destructuble= collision.gameObject.GetComponent<Destructuble>();
+            destructuble.DoDamage(bulletDamage);
+            Destroy(gameObject);
+        }
     }
     
 }
