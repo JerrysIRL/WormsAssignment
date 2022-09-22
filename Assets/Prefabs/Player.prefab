@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763895751}
-  - component: {fileID: 1763895752}
   m_Layer: 0
   m_Name: weapon
   m_TagString: Untagged
@@ -32,27 +31,6 @@ Transform:
   m_Father: {fileID: 8730244405989915168}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1763895752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1763895750}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e5d46ddbc813043a4ca96e6741bdf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletSpeed: 1500
-  throwY: 20
-  throwZ: 30
-  bullet: {fileID: 516483764615270483, guid: 4c497470f64df054cb1b5977ec246e12, type: 3}
-  pistol: {fileID: 8344981833731106579}
-  grenade: {fileID: 7223501526542740179}
-  grenadePrefab: {fileID: 5184563762555180440, guid: dc42c45489cc679469903584934e2b96, type: 3}
-  bullets: 10
-  grenades: 2
 --- !u!1 &7223501526542740179
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,10 +140,13 @@ GameObject:
   - component: {fileID: 7407863433535263636}
   - component: {fileID: 508521700}
   - component: {fileID: 215619696580189949}
-  - component: {fileID: 5764740106758049588}
+  - component: {fileID: 9155322241745526401}
+  - component: {fileID: 9155322241745526405}
+  - component: {fileID: 5678734585561130160}
+  - component: {fileID: 4942726076371927966}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,9 +200,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   jumpHeight: 200
+  manager: {fileID: 0}
+  rotationSpeed: 70
   player: {fileID: 8132212353836244696}
   rb: {fileID: 7407863433535263636}
-  rotationSpeed: 70
 --- !u!114 &215619696580189949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2baaa250dd0aae74bb17687b8b3c7877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5764740106758049588
+--- !u!114 &9155322241745526401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,9 +225,59 @@ MonoBehaviour:
   m_GameObject: {fileID: 8132212353836244696}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9cdc0a6c488f9c488c2bdd99dad5475, type: 3}
+  m_Script: {fileID: 11500000, guid: 22db3c60bf1f09443a8baf79cf1a20fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9155322241745526405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132212353836244696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e5d46ddbc813043a4ca96e6741bdf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpeed: 1500
+  throwY: 20
+  throwZ: 30
+  manager: {fileID: 0}
+  weaponHolder: {fileID: 1763895750}
+  bullet: {fileID: 516483764615270483, guid: 4c497470f64df054cb1b5977ec246e12, type: 3}
+  pistol: {fileID: 8344981833731106579}
+  grenade: {fileID: 7223501526542740179}
+  grenadePrefab: {fileID: 5184563762555180440, guid: dc42c45489cc679469903584934e2b96, type: 3}
+  bullets: 10
+  grenades: 10
+--- !u!64 &5678734585561130160
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132212353836244696}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3441492313242690119, guid: ed8fa33ee2549ba468d2cc72cd5e9fb9, type: 3}
+--- !u!114 &4942726076371927966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8132212353836244696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c3b8b5e2536e05449b8d4ee55740d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
 --- !u!1001 &9155322241161648706
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -398,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ed8fa33ee2549ba468d2cc72cd5e9fb9, type: 3}
       propertyPath: m_TagString
-      value: Player
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8473054923572261194, guid: ed8fa33ee2549ba468d2cc72cd5e9fb9, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -415,21 +447,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ed8fa33ee2549ba468d2cc72cd5e9fb9, type: 3}
   m_PrefabInstance: {fileID: 9155322241474990015}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &1079059137
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8344981834044846830}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
---- !u!64 &9155322241711164074
+--- !u!64 &1357296117
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

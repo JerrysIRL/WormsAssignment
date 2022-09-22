@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,18 +15,19 @@ public class GrenadeProjectile : MonoBehaviour
     }
 
 
-    void CheckForPlayers()
+    private void CheckForPlayers()
     {
         if (collided == false)
         {
             collided = true;
-            Collider[] colliders = Physics.OverlapSphere(transform.position, 8f);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, 5f);
             foreach (Collider c in colliders)
             {
                 Destructuble worm = c.GetComponent<Destructuble>();
                 if (c.gameObject.CompareTag("Enemy"))
                 {
                     worm.DoDamage(50);
+                    Debug.Log("hits");
                 }
             }
             Destroy(gameObject);

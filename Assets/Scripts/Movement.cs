@@ -8,43 +8,38 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int jumpHeight = 50;
+    [SerializeField] private ActivePlayerMannager manager;
+    [SerializeField] private float rotationSpeed;
     public GameObject player;
     public Rigidbody rb;
-    [SerializeField] private float rotationSpeed;
+    
     private float h;
     private float v;
     private bool onGround;
 
 
-    private void Awake()
+    public void Awake()
     {
         rb = GetComponent<Rigidbody>();
-    }
-
-    private void Update()
-    {
         
-        PlayerMove();
-        PlayerJump();
     }
-
+    
     public void PlayerMove()
     {
-        {
-            v = Input.GetAxisRaw("Vertical");
-        }
+        v = Input.GetAxisRaw("Vertical");
         h = Input.GetAxisRaw("Horizontal");
+        ActivePlayer currentPlayer = manager.GetCurrentPlayer();
         if (v != 0)
-        {
-            transform.position += transform.forward * (Time.deltaTime * speed * v);
+        { 
+            currentPlayer.transform.position += currentPlayer.transform.forward * (Time.deltaTime * speed * v);
         }
         if (h != 0)
         {
-            transform.Rotate(new Vector3(0,h * rotationSpeed* Time.deltaTime, 0));
+            currentPlayer.transform.Rotate(new Vector3(0,h * rotationSpeed* Time.deltaTime, 0));
         }
     }
 
-    private void PlayerJump()
+    public void PlayerJump()
     {
         if(onGround)
         {

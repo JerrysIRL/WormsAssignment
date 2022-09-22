@@ -1,4 +1,5 @@
 using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField]private int throwY;
     [SerializeField]private int throwZ;
+    [SerializeField] private ActivePlayerMannager manager;
+    [SerializeField] private GameObject weaponHolder;
     public GameObject bullet;
     public GameObject pistol;
     public GameObject grenade;
@@ -16,24 +19,24 @@ public class WeaponSystem : MonoBehaviour
     private bool grenadeIsActive = false;
     
     public int bullets = 10;
-    public int grenades = 2;
+    public int grenades = 10;
     
-    private void Update()
+    public void ShootingWeapons()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             grenadeIsActive = false;
             grenade.SetActive(false);
-            
+
             _pistolIsActive = true;
             pistol.SetActive(true);
-            
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _pistolIsActive = false;
             pistol.SetActive(false);
-            
+
             grenadeIsActive = true;
             grenade.SetActive(true);
         }
@@ -42,8 +45,9 @@ public class WeaponSystem : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && bullets > 0)
             {
-                GameObject projectile = Instantiate(bullet, gameObject.transform.position , transform.rotation);
-                projectile.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,0, bulletSpeed));
+                GameObject projectile =
+                    Instantiate(bullet, weaponHolder.transform.position, weaponHolder.transform.rotation);
+                projectile.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
                 bullets--;
             }
         }
@@ -52,12 +56,11 @@ public class WeaponSystem : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse1) && grenades > 0)
             {
-                GameObject frag = Instantiate(grenadePrefab, gameObject.transform.position, transform.rotation);
-                frag.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0,throwY, throwZ ));
+                GameObject frag = Instantiate(grenadePrefab, weaponHolder.transform.position,
+                    weaponHolder.transform.rotation);
+                frag.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, throwY, throwZ));
                 grenades--;
             }
         }
-        
     }
-
 }   

@@ -13,14 +13,14 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            Destructuble destructuble= collision.gameObject.GetComponent<Destructuble>();
+            Destructuble destructuble = other.gameObject.GetComponent<Destructuble>();
             destructuble.DoDamage(bulletDamage);
             Destroy(gameObject);
         }
+
     }
-    
 }
