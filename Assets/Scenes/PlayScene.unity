@@ -526,6 +526,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 822563260}
     - target: {fileID: 6782652226847011025, guid: fa6f19f6c66d8e14489fb93f21d54f83, type: 3}
+      propertyPath: smoothFactor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6782652226847011025, guid: fa6f19f6c66d8e14489fb93f21d54f83, type: 3}
       propertyPath: PlayerTransform
       value: 
       objectReference: {fileID: 508521698}

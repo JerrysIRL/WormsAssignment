@@ -7,6 +7,7 @@ using UnityEngine;
 public class GrenadeProjectile : MonoBehaviour
 {
     private bool collided = false;
+    private int grenadeDamage = 50;
 
 
     private void OnCollisionEnter(Collision collision)
@@ -26,7 +27,7 @@ public class GrenadeProjectile : MonoBehaviour
                 Destructuble worm = c.GetComponent<Destructuble>();
                 if (c.gameObject.CompareTag("Enemy"))
                 {
-                    worm.DoDamage(50);
+                    worm.DoDamage(grenadeDamage);
                     Debug.Log("hits");
                 }
             }
