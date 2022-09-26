@@ -8,7 +8,7 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "bulletPickup")
+        if (other.gameObject.CompareTag("bulletPickup"))
         {
             GetComponentInChildren<WeaponSystem>().bullets += 10;
             Destroy(other.gameObject);

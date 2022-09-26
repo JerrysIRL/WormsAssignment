@@ -5,13 +5,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private Rigidbody rb;
-    private int bulletDamage = 25;
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private int bulletDamage = 15;
+    
 
     private void OnTriggerEnter(Collider other)
     {

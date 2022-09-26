@@ -12,6 +12,7 @@ public class ActivePlayerMannager : MonoBehaviour
     [SerializeField] private GameObject player2;
 
     private ActivePlayer currentPlayer;
+    
     private Movement movementTwo;
     private Movement movement;
     private WeaponSystem weapon;

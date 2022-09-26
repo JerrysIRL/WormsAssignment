@@ -6,7 +6,15 @@ using UnityEngine;
 public class Destructuble : MonoBehaviour
 {
     public int health = 100;
-    
+    public int currentHealth;
+    public HealthBar healthBar;
+
+    private void Start()
+    {
+        currentHealth = health;
+        healthBar.SetMaxHealth(health);
+    }
+
     private void Update()
     {
         Die();
@@ -14,7 +22,7 @@ public class Destructuble : MonoBehaviour
 
     private void Die()
     {
-        if (health <= 0)
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
@@ -22,6 +30,7 @@ public class Destructuble : MonoBehaviour
 
     public void DoDamage(int hitPoints)
     {
-        health -= hitPoints;
+        currentHealth -= hitPoints;
+        healthBar.SetHealth(currentHealth);
     }
 }

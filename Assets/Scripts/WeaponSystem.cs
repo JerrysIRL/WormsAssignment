@@ -15,14 +15,17 @@ public class WeaponSystem : MonoBehaviour
     public GameObject pistol;
     public GameObject grenade;
     public GameObject grenadePrefab;
-    private bool _pistolIsActive = false;
-    private bool grenadeIsActive = false;
+    private bool _pistolIsActive;
+    private bool grenadeIsActive;
+    private ActivePlayer currentPlayer;
+    
     
     public int bullets = 10;
     public int grenades = 10;
     
     public void ShootingWeapons()
     {
+        currentPlayer = manager.GetCurrentPlayer();
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             grenadeIsActive = false;
@@ -48,7 +51,7 @@ public class WeaponSystem : MonoBehaviour
                 GameObject projectile =
                     Instantiate(bullet, weaponHolder.transform.position, weaponHolder.transform.rotation);
                 projectile.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
-                bullets--;
+                currentPlayer.GetComponent<WeaponSystem>().bullets--;
             }
         }
 
@@ -56,10 +59,10 @@ public class WeaponSystem : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse1) && grenades > 0)
             {
-                GameObject frag = Instantiate(grenadePrefab, weaponHolder.transform.position,
-                    weaponHolder.transform.rotation);
+                GameObject frag = Instantiate(grenadePrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
                 frag.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, throwY, throwZ));
-                grenades--;
+                
+                currentPlayer.GetComponent<WeaponSystem>().grenades--;
             }
         }
     }

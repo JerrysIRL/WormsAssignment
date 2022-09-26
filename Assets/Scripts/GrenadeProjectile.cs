@@ -28,7 +28,6 @@ public class GrenadeProjectile : MonoBehaviour
                 if (c.gameObject.CompareTag("Enemy"))
                 {
                     worm.DoDamage(grenadeDamage);
-                    Debug.Log("hits");
                 }
             }
             Destroy(gameObject);
