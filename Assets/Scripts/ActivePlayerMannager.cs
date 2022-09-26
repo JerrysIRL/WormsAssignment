@@ -12,7 +12,7 @@ public class ActivePlayerMannager : MonoBehaviour
     [SerializeField] private GameObject player2;
 
     private ActivePlayer currentPlayer;
-    
+
     private Movement movementTwo;
     private Movement movement;
     private WeaponSystem weapon;
@@ -20,7 +20,6 @@ public class ActivePlayerMannager : MonoBehaviour
 
     private void Awake()
     {
-        
         movement = player1.GetComponent<Movement>();
         weapon = player1.GetComponent<WeaponSystem>();
         movementTwo = player2.GetComponent<Movement>();
@@ -74,4 +73,5 @@ public class ActivePlayerMannager : MonoBehaviour
         }
         
     }
+    
 }
