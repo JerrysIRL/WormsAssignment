@@ -6,15 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    private int currentScene;
-    private void Start()
-    {
-        currentScene = SceneManager.GetActiveScene().buildIndex;
-    }
-
+    //Ha kvar här för event referens
     public void PlayGame()
     {
-        SceneManager.LoadScene(currentScene + 1 );
+        GameManager.GetInstance().LoadScene();
     }
 
     public void QuitGame()

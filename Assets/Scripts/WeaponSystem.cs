@@ -9,25 +9,23 @@ public class WeaponSystem : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField]private int throwY;
     [SerializeField]private int throwZ;
-    [SerializeField] private ActivePlayerMannager manager;
     [SerializeField] private GameObject weaponHolder;
+   
     public GameObject bullet;
     public GameObject pistol;
     public GameObject grenade;
     public GameObject grenadePrefab;
+    
     private bool _pistolIsActive;
     private bool grenadeIsActive;
-    private ActivePlayer currentPlayer;
-    
-    
+
     public int bullets = 10;
-    public int grenades = 10;
+    public int grenades = 3;
     
-    public void ShootingWeapons()
+    public void Shooting()
     {
-        currentPlayer = manager.GetCurrentPlayer();
         if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
+        { 
             grenadeIsActive = false;
             grenade.SetActive(false);
 
@@ -51,7 +49,7 @@ public class WeaponSystem : MonoBehaviour
                 GameObject projectile =
                     Instantiate(bullet, weaponHolder.transform.position, weaponHolder.transform.rotation);
                 projectile.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
-                currentPlayer.GetComponent<WeaponSystem>().bullets--;
+                ActivePlayerMannager.GetInstance().GetCurrentPlayer().GetComponent<WeaponSystem>().bullets--;
             }
         }
 
@@ -62,7 +60,7 @@ public class WeaponSystem : MonoBehaviour
                 GameObject frag = Instantiate(grenadePrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
                 frag.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, throwY, throwZ));
                 
-                currentPlayer.GetComponent<WeaponSystem>().grenades--;
+                ActivePlayerMannager.GetInstance().GetCurrentPlayer().GetComponent<WeaponSystem>().grenades--;
             }
         }
     }

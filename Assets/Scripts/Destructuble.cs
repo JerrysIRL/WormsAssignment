@@ -21,11 +21,6 @@ public class Destructuble : MonoBehaviour
         currentScene = SceneManager.GetActiveScene().buildIndex;
     }
 
-    private void Update()
-    {
-        Die();
-    }
-
     public void DoDamage(int hitPoints)
     {
         currentHealth -= hitPoints;
@@ -34,27 +29,20 @@ public class Destructuble : MonoBehaviour
     
     public void Die()
     {
-        if (currentHealth <= 0)
-        {
-            GameOver();
-            gameObject.SetActive(false);
-        }
+        gameObject.SetActive(false);
     }
     
     public void GameOver()
     {
-        float delayTime = 3;
         gameOverImage.SetActive(true);
-        Invoke("NextScene", delayTime);
-        //StartCoroutine(ChangeScene());
+        //Invoke("NextScene", delayTime);
+        StartCoroutine(ChangeScene());
     }
 
     IEnumerator ChangeScene()
     {
-        
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(currentScene + 1);
-        yield return new WaitForSeconds(10f);
-
     }
     void NextScene()
     {

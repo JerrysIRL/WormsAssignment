@@ -23,41 +23,43 @@ public class Movement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         
     }
-    
+
     public void PlayerMove()
     {
         v = Input.GetAxisRaw("Vertical");
         h = Input.GetAxisRaw("Horizontal");
         ActivePlayer currentPlayer = manager.GetCurrentPlayer();
         if (v != 0)
-        { 
+        {
             currentPlayer.transform.position += currentPlayer.transform.forward * (Time.deltaTime * speed * v);
         }
-        if (h != 0)
+
+        if (Input.GetKey(KeyCode.A))
         {
-            currentPlayer.transform.Rotate(new Vector3(0,h * rotationSpeed* Time.deltaTime, 0));
+            currentPlayer.transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
         }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            currentPlayer.transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
+        }
+
     }
 
     public void PlayerJump()
-    {
-        if(onGround)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if(onGround && Input.GetKeyDown(KeyCode.Space))
             {
                 rb.AddForce(Vector3.up * jumpHeight);
                 onGround = false;
             }
-            
         }
 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("environment"))
+        private void OnCollisionEnter(Collision collision)
         {
-            onGround = true;
+            if (collision.gameObject.CompareTag("environment"))
+            {
+                onGround = true;
+            }
         }
-    }
 }

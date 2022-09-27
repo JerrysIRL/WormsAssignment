@@ -5,17 +5,16 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private int bulletDamage = 15;
-    
+    private int bulletDamage = 10;
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            Destructuble destructuble = other.gameObject.GetComponent<Destructuble>();
-            destructuble.DoDamage(bulletDamage);
-            Destroy(gameObject);
-        }
-
+       if (collision.gameObject.CompareTag("Enemy"))
+       {
+           Destructuble destructuble = collision.gameObject.GetComponent<Destructuble>();
+           destructuble.DoDamage(bulletDamage);
+           Destroy(gameObject);
+       } 
     }
 }

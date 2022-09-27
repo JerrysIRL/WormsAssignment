@@ -10,7 +10,8 @@ public class Pickup : MonoBehaviour
     {
         if (other.gameObject.CompareTag("bulletPickup"))
         {
-            GetComponentInChildren<WeaponSystem>().bullets += 10;
+            GetComponent<WeaponSystem>().bullets += 10;
+            GetComponent<WeaponSystem>().grenades += 3;
             Destroy(other.gameObject);
         }
     }

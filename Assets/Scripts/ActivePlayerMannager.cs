@@ -6,49 +6,36 @@ using UnityEngine;
 
 public class ActivePlayerMannager : MonoBehaviour
 {
+    public static ActivePlayerMannager Instance;
+
     [SerializeField] private ActivePlayer playerOne;
     [SerializeField] private ActivePlayer playerTwo;
-    [SerializeField] private GameObject player1;
-    [SerializeField] private GameObject player2;
+    [SerializeField] private GameObject[] worms;
 
     private ActivePlayer currentPlayer;
 
-    private Movement movementTwo;
-    private Movement movement;
-    private WeaponSystem weapon;
-    private WeaponSystem weaponTwo;
-
     private void Awake()
     {
-        movement = player1.GetComponent<Movement>();
-        weapon = player1.GetComponent<WeaponSystem>();
-        movementTwo = player2.GetComponent<Movement>();
-        weaponTwo = player2.GetComponent<WeaponSystem>();
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
-        playerOne.AssignManager(this);
-        playerTwo.AssignManager(this);
+        DontDestroyOnLoad(this.gameObject);
+        //playerOne.AssignManager(this);
+        //playerTwo.AssignManager(this);
         currentPlayer = playerOne;
     }
 
     private void Update()
     {
-        if (playerOne == currentPlayer)
-        {
-            movement.PlayerMove();
-            movement.PlayerJump();
-            weapon.ShootingWeapons();
-
-        }
-        else if (playerTwo == currentPlayer)
-        {
-            movementTwo.PlayerMove();
-            movementTwo.PlayerJump();
-            weaponTwo.ShootingWeapons();
-        }
-       
         ChangeTurn();
     }
 
@@ -65,13 +52,16 @@ public class ActivePlayerMannager : MonoBehaviour
             {
                 currentPlayer = playerTwo;
             }
-                        
+
             else if (playerTwo == currentPlayer)
             {
                 currentPlayer = playerOne;
             }
         }
-        
     }
     
+    public static ActivePlayerMannager GetInstance()
+    {
+        return Instance;
+    }
 }

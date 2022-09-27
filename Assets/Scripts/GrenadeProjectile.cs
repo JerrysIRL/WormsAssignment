@@ -7,7 +7,7 @@ using UnityEngine;
 public class GrenadeProjectile : MonoBehaviour
 {
     private bool collided = false;
-    private int grenadeDamage = 50;
+    private int grenadeDamage = 30;
 
 
     private void OnCollisionEnter(Collision collision)

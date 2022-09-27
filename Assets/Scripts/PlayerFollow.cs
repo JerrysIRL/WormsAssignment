@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class PlayerFollow : MonoBehaviour
 {
-    [SerializeField] private ActivePlayerMannager manager;
     public Transform PlayerTransform;
     private Vector3 _cameraOffset;
     [Range(0.01f, 1.0f)]public float smoothFactor = 0.5f;
@@ -15,17 +14,17 @@ public class PlayerFollow : MonoBehaviour
     public float rotationsSpeed = 5;
     
     private void Start()
-        {
-            _cameraOffset = transform.position - PlayerTransform.position;
-        }
-void LateUpdate()
-{
-    FollowPlayer();
-}
+    {
+        _cameraOffset = transform.position - PlayerTransform.position;
+    }
+    void LateUpdate()
+    {
+        FollowPlayer();
+    }
 
 private void FollowPlayer()
 {
-    ActivePlayer currentPlayer = manager.GetCurrentPlayer();
+    ActivePlayer currentPlayer = ActivePlayerMannager.GetInstance().GetCurrentPlayer();
     Vector3 newPos = currentPlayer.transform.position + _cameraOffset;
 
     transform.position = Vector3.Slerp(transform.position, newPos, smoothFactor); // look at player
@@ -40,6 +39,7 @@ private void FollowPlayer()
     {
         transform.LookAt(currentPlayer.transform);
     }
+    
 }
 
 

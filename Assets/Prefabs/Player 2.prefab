@@ -153,7 +153,7 @@ MonoBehaviour:
   grenade: {fileID: 6018828311108731705}
   grenadePrefab: {fileID: 5184563762555180440, guid: dc42c45489cc679469903584934e2b96, type: 3}
   bullets: 10
-  grenades: 10
+  grenades: 3
 --- !u!64 &8752410717379464538
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -180,9 +180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3b8b5e2536e05449b8d4ee55740d76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  currentHealth: 0
   healthBar: {fileID: 0}
+  gameOverImage: {fileID: 0}
 --- !u!1 &6018828311108731705
 GameObject:
   m_ObjectHideFlags: 0
