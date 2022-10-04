@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class Destructuble : MonoBehaviour
 {
-    public int health = 100;
-    private int currentHealth;
+    private int health = 100;
+    public int currentHealth;
     private int currentScene;
     //public HealthBar healthBar;
 
