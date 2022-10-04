@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -12,7 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject gameOverImage;
     public static GameManager instance;
     
-    private List<GameObject> teams = new List<GameObject>();
+    private List<GameObject> worms = new List<GameObject>();
     private int currentScene;
     private float vertical;
     public Movement currentPlayerMove;
@@ -88,9 +89,8 @@ public class GameManager : MonoBehaviour
     }
     public void SomeoneDied(GameObject deadWorm)
     {
-        Destroy(deadWorm);
-        int deadOrAlive = TeamsAlive() - 1;
-        
+        deadWorm.SetActive(false);
+        int deadOrAlive = TeamsAlive();
         if (deadOrAlive == 1)
         {
             Debug.Log("Game Over");
@@ -111,21 +111,20 @@ public class GameManager : MonoBehaviour
 
     IEnumerator NewRound()
     {
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         ActivePlayerMannager.GetInstance().ChangeTurn();
         StartCoroutine(TurnEnd());
     }
 
     private IEnumerator TurnEnd()
     {
-        yield return new WaitForSeconds(2f);
         if (TeamsAlive() > 1)
         {
             StartCoroutine(NewRound());
         }
-        
+        yield return new WaitForSeconds(1f);
     }
-    
+
     IEnumerator LoadGameOverScene()
     {
         yield return new WaitForSeconds(2f);
@@ -134,11 +133,10 @@ public class GameManager : MonoBehaviour
     public int TeamsAlive()
     {
         int alive = 0;
-        foreach (GameObject team in teams)
+        foreach (GameObject worm in worms)
         {
-            if(team.transform.childCount > 0)
+            if(worm.GetComponent<Destructuble>().currentHealth > 0 )
             {
-                
                 alive += 1;
             }
         }
@@ -147,7 +145,7 @@ public class GameManager : MonoBehaviour
 
     public void AddTeam(GameObject newTeam) 
     {
-        teams.Add(newTeam);
+        worms.Add(newTeam);
     }
     
     public static GameManager GetInstance()

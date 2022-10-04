@@ -11,15 +11,13 @@ public class ActivePlayerMannager : MonoBehaviour
 {
     public static ActivePlayerMannager Instance;
 
-    [Range(2, 4)] [SerializeField]private int numTeams; 
-    [Range(1,1)] [SerializeField]private int numWorms;
-    
+    [Range(2, 4)] [SerializeField]private int numTeams;
+
     [SerializeField] private GameObject wormsPrefab;
 
-    private List<List<GameObject>> worms = new List<List<GameObject>>();
+    private List<GameObject> worms = new List<GameObject>();
 
     private GameObject currentPlayer;
-    public int currentTeam;
     private int currentWorm;
     private int lastTeam;
 
@@ -40,34 +38,24 @@ public class ActivePlayerMannager : MonoBehaviour
     private void Start()
     {
         SpawnTeams();
-        currentPlayer = worms[currentTeam][currentWorm];
+        currentPlayer = worms[currentWorm];
         GameManager.GetInstance().currentPlayerMove = currentPlayer.GetComponent<Movement>();
         GameManager.GetInstance().currentWeaponSystem = currentPlayer.GetComponent<WeaponSystem>();
-        lastTeam = numTeams -1;
     }
     
     private void SpawnTeams()
     {
-        for (int i = 0; i < numTeams; i++)
+        for (int i = 0; i< numTeams; i++)
         {
-            worms.Add(new List<GameObject>());
-            GameObject team = new GameObject();
-            team.name = "Team" + (i + 1);
-            
-            for (int I = 0; I < numWorms; I++)
-            {
-                Vector3 position = new Vector3(Random.Range(1, 150), 5, Random.Range(1, 150));
-                GameObject worm = Instantiate(wormsPrefab, position, transform.rotation);
-                worm.transform.SetParent(team.transform);
-                worms[i].Insert(I,worm);
-            }
-            GameManager.GetInstance().AddTeam(team);
+            Vector3 position = new Vector3(Random.Range(1, 150), 5, Random.Range(1, 150));
+            GameObject worm = Instantiate(wormsPrefab, position, transform.rotation);
+            worms.Add(worm);
+            GameManager.GetInstance().AddTeam(worm);
         }
-        currentTeam = 0;
         currentWorm = 0;
     }
 
-    
+
     public GameObject GetCurrentPlayer()
     {
         return currentPlayer;
@@ -75,28 +63,29 @@ public class ActivePlayerMannager : MonoBehaviour
 
     public void ChangeTurn()
     {
-        if (worms[currentTeam][currentWorm].transform.childCount > 0)
+        if (GameManager.GetInstance().TeamsAlive() <= 1)
         {
-            if(currentTeam <= worms[currentTeam].Count - 1)
-            {
-                Debug.Log("Change Team");
-                currentTeam++;
-                currentPlayer = worms[currentTeam][currentWorm];
-            }
-            else
-            {
-                Debug.Log("Reset Team");
-                currentTeam = 0;
-                currentPlayer = worms[currentTeam][currentWorm];
-            }
-            GameManager.GetInstance().currentPlayerMove = currentPlayer.GetComponent<Movement>();
-            GameManager.GetInstance().currentWeaponSystem = currentPlayer.GetComponent<WeaponSystem>();
+            return;
         }
-        else if(GameManager.GetInstance().TeamsAlive() > 1)
+        
+        currentWorm++;
+        if (currentWorm >= worms.Count)
         {
-            currentTeam++;
-            ChangeTurn();
+            currentWorm = 0;
         }
+        while (worms[currentWorm].activeSelf == false)
+        {
+            currentWorm++;
+            if (currentWorm >= worms.Count)
+            {
+                currentWorm = 0;
+            }
+        }
+        
+        currentPlayer = worms[currentWorm];
+        
+        GameManager.GetInstance().currentPlayerMove = currentPlayer.GetComponent<Movement>();
+        GameManager.GetInstance().currentWeaponSystem = currentPlayer.GetComponent<WeaponSystem>();
     }
     
     public static ActivePlayerMannager GetInstance()
