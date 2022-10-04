@@ -97,8 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de424009590c95840a25df00ecee91db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerTransform: {fileID: 0}
-  smoothFactor: 0.01
+  cameraOffset: {fileID: 6120381915879797474, guid: 6a0f485ed29a06949a3e3bad38543abd, type: 3}
+  smoothFactor: 1
   lookAtPlayer: 1
   rotateAroundPlayer: 1
   rotationsSpeed: 5

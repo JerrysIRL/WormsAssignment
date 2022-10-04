@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 
 public class GunsMenu : MonoBehaviour
 {
-    public GameObject Buttons;
-    public GameObject[] Guns;
+    public UnityEngine.GameObject Buttons;
+    public UnityEngine.GameObject[] Guns;
     int currentGun = 0;
     void Start()
     {

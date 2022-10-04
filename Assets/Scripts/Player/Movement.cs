@@ -8,12 +8,11 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int jumpHeight = 50;
-    [SerializeField] private ActivePlayerMannager manager;
     [SerializeField] private float rotationSpeed;
-    public GameObject player;
+    public UnityEngine.GameObject player;
     public Rigidbody rb;
     
-    private float h;
+    
     private float v;
     private bool onGround;
 
@@ -24,31 +23,30 @@ public class Movement : MonoBehaviour
         
     }
 
-    public void PlayerMove()
+    public void PlayerMove(float vertical)
     {
-        v = Input.GetAxisRaw("Vertical");
-        h = Input.GetAxisRaw("Horizontal");
-        ActivePlayer currentPlayer = manager.GetCurrentPlayer();
-        if (v != 0)
-        {
-            currentPlayer.transform.position += currentPlayer.transform.forward * (Time.deltaTime * speed * v);
-        }
+        transform.position += transform.forward * (Time.deltaTime * speed * vertical);
+    }
 
-        if (Input.GetKey(KeyCode.A))
-        {
-            currentPlayer.transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
-        }
-
+    public void RotateRight()
+    {
         if (Input.GetKey(KeyCode.D))
         {
-            currentPlayer.transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
+            transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
         }
+    }
 
+    public void RotateLeft()
+    {
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
+        }
     }
 
     public void PlayerJump()
         {
-            if(onGround && Input.GetKeyDown(KeyCode.Space))
+            if(onGround)
             {
                 rb.AddForce(Vector3.up * jumpHeight);
                 onGround = false;
