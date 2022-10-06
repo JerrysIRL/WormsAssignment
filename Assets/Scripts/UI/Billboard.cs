@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class Billboard : MonoBehaviour
 {
-    //public Transform cam;
-
-    private void Awake()
-    {
-    }
 
     private void LateUpdate()
     {

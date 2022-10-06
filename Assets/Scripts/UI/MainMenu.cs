@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    //Ha kvar här för event referens
+    private int playeScene = 1;
     public void PlayGame()
     {
-        GameManager.GetInstance().LoadScene();
+        SceneManager.LoadScene(playeScene);
     }
 
     public void QuitGame()

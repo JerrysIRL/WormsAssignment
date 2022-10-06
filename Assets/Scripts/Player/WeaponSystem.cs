@@ -23,11 +23,11 @@ public class WeaponSystem : MonoBehaviour
     public int bullets = 10;
     public int grenades = 3;
 
-    public void ThrowGrenade()
+    public void ThrowGrenade() // Method for instantiating grenade from player
     {
         if (grenadeIsActive)
         {
-            if (grenades > 0 && IsAvailable == true)
+            if (grenades > 0 && IsAvailable)
             {
                 GameObject frag = Instantiate(grenadePrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
                 frag.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, throwY, throwZ));
@@ -37,17 +37,18 @@ public class WeaponSystem : MonoBehaviour
         }
     }
 
-    public void ShootPistol()
+    public void ShootPistol() // shooting the pistol 
     {
         if (_pistolIsActive && bullets > 0)
         {
             GameObject projectile = Instantiate(bullet, weaponHolder.transform.position, weaponHolder.transform.rotation);
             projectile.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, 0, bulletSpeed));
             bullets--;
+            StartCoroutine(ShootingDelay());
         }
     }
 
-    public void DrawGrenade()
+    public void DrawGrenade() // showing a 3D model of the weapon player is using 
     {
         _pistolIsActive = false;
         pistol.SetActive(false);
@@ -66,10 +67,16 @@ public class WeaponSystem : MonoBehaviour
     }
 
 
-    IEnumerator GrenadeThrowDelay()
+    IEnumerator GrenadeThrowDelay() // Delays for the different guns
     {
         IsAvailable = false;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.6f);
+        IsAvailable = true;
+    }
+    IEnumerator ShootingDelay()
+    {
+        IsAvailable = false;
+        yield return new WaitForSeconds(0.2f);
         IsAvailable = true;
     }
     

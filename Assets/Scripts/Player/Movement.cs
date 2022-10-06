@@ -53,7 +53,7 @@ public class Movement : MonoBehaviour
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter(Collision collision) // check if the player is on the ground before he can jump again
         {
             if (collision.gameObject.CompareTag("environment"))
             {

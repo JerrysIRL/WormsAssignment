@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6cf18c9b4e376d543a55da6f59cf4d82
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - gameOverImage: {instanceID: 0}
+  - pickupPrefab: {instanceID: 0}
+  - prefabSpawner: {instanceID: 0}
+  - currentPlayerMove: {instanceID: 0}
+  - currentWeaponSystem: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

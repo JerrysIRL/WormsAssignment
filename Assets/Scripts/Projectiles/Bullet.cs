@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private int bulletDamage = 10;
+    private int bulletDamage = 7;
 
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision) // checks for collision with the worm
     {
        if (collision.gameObject.CompareTag("Enemy"))
        {

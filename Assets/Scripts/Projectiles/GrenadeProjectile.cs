@@ -16,7 +16,7 @@ public class GrenadeProjectile : MonoBehaviour
     }
 
 
-    private void CheckForPlayers()
+    private void CheckForPlayers() // function creates a sphere which checks if player was withing a blast radius, if yes DealDamage
     {
         if (collided == false)
         {

@@ -9,21 +9,22 @@ public class PlayerFollow : MonoBehaviour
     public Transform cameraOffset;
     private Vector3 _cameraOffset;
     [Range(0.01f, 1.0f)]public float smoothFactor = 0.5f;
-    public bool lookAtPlayer = false;
     public bool rotateAroundPlayer = true;
     public float rotationsSpeed = 5;
+    private GameObject currentPlayer;
     
     private void Start()
     {
-        _cameraOffset = transform.position - cameraOffset.transform.position;
+        _cameraOffset = transform.position - cameraOffset.transform.position; // Declaring a value for cameraOffset
     }
 
     private void Update()
     {
-        FollowPlayer(ActivePlayerMannager.GetInstance().GetCurrentPlayer());
+        currentPlayer = ActivePlayerMannager.GetInstance().GetCurrentPlayer();
+        FollowPlayer(currentPlayer);
     }
 
-    private void FollowPlayer(GameObject currentPlayer)
+    private void FollowPlayer(GameObject currentPlayer) // Function which follows the player aswell as created a Camera orbit which is controlle by mouse
     {
        
         Vector3 newPos = currentPlayer.transform.position + _cameraOffset;
@@ -36,7 +37,7 @@ public class PlayerFollow : MonoBehaviour
             _cameraOffset = camTurnAngle * _cameraOffset;
         }
 
-        if (lookAtPlayer || rotateAroundPlayer)
+        if (rotateAroundPlayer)
         {
             transform.LookAt(currentPlayer.transform);
         }
