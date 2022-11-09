@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private int bulletDamage = 7;
+    private int _bulletDamage = 7;
 
 
     private void OnCollisionEnter(Collision collision) // checks for collision with the worm
@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour
        if (collision.gameObject.CompareTag("Enemy"))
        {
            Destructuble destructuble = collision.gameObject.GetComponent<Destructuble>();
-           destructuble.DoDamage(bulletDamage);
+           destructuble.DoDamage(_bulletDamage);
            Destroy(gameObject);
        } 
     }

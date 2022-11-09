@@ -11,24 +11,24 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverImage;
-    public static GameManager instance;
+    public static GameManager Instance;
 
     
-    private List<GameObject> worms = new List<GameObject>();
-    private bool gameON = false;
-    private int currentScene;
-    private float vertical;
+    private List<GameObject> _worms = new List<GameObject>();
+    private bool _gameOn = false;
+    private int _currentScene;
+    private float _vertical;
     public Timer timer;
     public PrefabSpawner prefabSpawner;
-    public Movement currentPlayerMove;
-    public WeaponSystem currentWeaponSystem;
+    public Movement movement;
+    public WeaponSystem weaponSystem;
     
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         }
         else
         {
@@ -40,10 +40,10 @@ public class GameManager : MonoBehaviour
     {
         prefabSpawner = FindObjectOfType<PrefabSpawner>().GetComponent<PrefabSpawner>();
         timer = FindObjectOfType<Timer>().GetComponent<Timer>();
-        currentScene = SceneManager.GetActiveScene().buildIndex;
-        if (currentScene == 1)
+        _currentScene = SceneManager.GetActiveScene().buildIndex;
+        if (_currentScene == 1)
         {
-            gameON = true;
+            _gameOn = true;
             StartCoroutine(NewRound());
             StartCoroutine(prefabSpawner.SpawnPickups());
         }
@@ -53,46 +53,46 @@ public class GameManager : MonoBehaviour
     
     private void Update() // I know for a fact that the Update method is supposed to be clean and short,but  i did not have time to make an Input manager.
     {
-        vertical = Input.GetAxisRaw("Vertical");
+        _vertical = Input.GetAxisRaw("Vertical");
         
-         if (Input.anyKey && gameON == true)
+         if (Input.anyKey && _gameOn == true)
          {
-             if (vertical != 0)
+             if (_vertical != 0)
              {
-                 currentPlayerMove.PlayerMove(vertical);
+                 movement.PlayerMove(_vertical);
              }
 
              if (Input.GetKey(KeyCode.D))
              {
-                 currentPlayerMove.RotateRight();
+                 movement.RotateRight();
              }
              if (Input.GetKey(KeyCode.A))
              {
-                 currentPlayerMove.RotateLeft();
+                 movement.RotateLeft();
              }
              if (Input.GetKeyDown(KeyCode.Space))
              {
-                 currentPlayerMove.PlayerJump();
+                 movement.PlayerJump();
              }
             
              if (Input.GetKeyDown(KeyCode.Alpha1))
              {
-                 currentWeaponSystem.DrawPistol();
+                 weaponSystem.DrawPistol();
              }
             
              if (Input.GetKeyDown(KeyCode.Alpha2))
              {
-                 currentWeaponSystem.DrawGrenade();
+                 weaponSystem.DrawGrenade();
              }
             
              if (Input.GetKeyDown(KeyCode.Mouse0))
              {
-                 currentWeaponSystem.ShootPistol();
+                 weaponSystem.ShootPistol();
              }
             
              if (Input.GetKeyDown(KeyCode.Mouse1))
              {
-                 currentWeaponSystem.ThrowGrenade();
+                 weaponSystem.ThrowGrenade();
              }
          }
     }
@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
     
     private void GameOver() 
      {
-        gameON = false;
+        _gameOn = false;
         gameOverImage.SetActive(true);
         StartCoroutine(LoadGameOverScene());
     }
@@ -122,9 +122,9 @@ public class GameManager : MonoBehaviour
     }
      IEnumerator PlayerSwitchDelay() // delay when round ends
      {
-         gameON = false;
+         _gameOn = false;
          yield return new WaitForSeconds(3);
-         gameON = true;
+         _gameOn = true;
          ActivePlayerMannager.GetInstance().ChangeTurn();
          TurnEnd();
      }
@@ -139,12 +139,12 @@ public class GameManager : MonoBehaviour
     IEnumerator LoadGameOverScene()
     {
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene(currentScene + 1);
+        SceneManager.LoadScene(_currentScene + 1);
     }
     public int TeamsAlive() // function check threw the worms, and returns the number of teams alive
     {
         int alive = 0;
-        foreach (GameObject worm in worms)
+        foreach (GameObject worm in _worms)
         {
             if(worm.GetComponent<Destructuble>().currentHealth > 0 )
             {
@@ -156,12 +156,12 @@ public class GameManager : MonoBehaviour
 
     public void AddTeam(GameObject newTeam) 
     {
-        worms.Add(newTeam);
+        _worms.Add(newTeam);
     }
     
     public static GameManager GetInstance()
     {
-        return instance;
+        return Instance;
     }
     
 }

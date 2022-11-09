@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
 {
     public Slider teamsSlider;
     private SettingManager _settingManager;
-    private int playeScene = 1;
+    private int _playerScene = 1;
 
 
     private void Awake()
@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene(playeScene);
+        SceneManager.LoadScene(_playerScene);
     }
 
     public void QuitGame()

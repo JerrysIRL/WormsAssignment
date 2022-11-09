@@ -8,18 +8,16 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private int jumpHeight = 50;
     [SerializeField] private float rotationSpeed;
-    public UnityEngine.GameObject player;
     public Rigidbody rb;
-    
-    
-    private float v;
-    private bool onGround;
+
+
+    private float _v;
+    private bool _onGround;
 
 
     public void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        
     }
 
     public void PlayerMove(float vertical)
@@ -29,34 +27,26 @@ public class Movement : MonoBehaviour
 
     public void RotateRight()
     {
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
-        }
+        transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
     }
 
     public void RotateLeft()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
-        }
+        transform.Rotate(new Vector3(0, -rotationSpeed * Time.deltaTime, 0));
     }
 
     public void PlayerJump()
-        {
-            if(onGround)
-            {
-                rb.AddForce(Vector3.up * jumpHeight);
-                onGround = false;
-            }
-        }
+    {
+        if (!_onGround) return;
+        rb.AddForce(Vector3.up * jumpHeight);
+        _onGround = false;
+    }
 
-        private void OnCollisionEnter(Collision collision) // check if the player is on the ground before he can jump again
+    private void OnCollisionEnter(Collision collision) // check if the player is on the ground before he can jump again
+    {
+        if (collision.gameObject.CompareTag("environment"))
         {
-            if (collision.gameObject.CompareTag("environment"))
-            {
-                onGround = true;
-            }
+            _onGround = true;
         }
+    }
 }

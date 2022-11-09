@@ -6,12 +6,13 @@ using UnityEngine;
 
 public class PlayerFollow : MonoBehaviour
 {
-    public Transform cameraOffset;
-    private Vector3 _cameraOffset;
     [Range(0.01f, 1.0f)]public float smoothFactor = 0.5f;
+    public Transform cameraOffset;
     public bool rotateAroundPlayer = true;
     public float rotationsSpeed = 5;
-    private GameObject currentPlayer;
+    
+    private GameObject _currentPlayer;
+    private Vector3 _cameraOffset;
     
     private void Start()
     {
@@ -20,8 +21,8 @@ public class PlayerFollow : MonoBehaviour
 
     private void Update()
     {
-        currentPlayer = ActivePlayerMannager.GetInstance().GetCurrentPlayer();
-        FollowPlayer(currentPlayer);
+        _currentPlayer = ActivePlayerMannager.GetInstance().GetCurrentPlayer();
+        FollowPlayer(_currentPlayer);
     }
 
     private void FollowPlayer(GameObject currentPlayer) // Function which follows the player aswell as created a Camera orbit which is controlle by mouse

@@ -17,17 +17,17 @@ public class WeaponSystem : MonoBehaviour
     public GameObject grenadePrefab;
     
     private bool _pistolIsActive;
-    private bool grenadeIsActive;
-    private bool IsAvailable = true;
+    private bool _grenadeIsActive;
+    private bool _isAvailable = true;
 
     public int bullets = 10;
     public int grenades = 3;
 
     public void ThrowGrenade() // Method for instantiating grenade from player
     {
-        if (grenadeIsActive)
+        if (_grenadeIsActive)
         {
-            if (grenades > 0 && IsAvailable)
+            if (grenades > 0 && _isAvailable)
             {
                 GameObject frag = Instantiate(grenadePrefab, weaponHolder.transform.position, weaponHolder.transform.rotation);
                 frag.GetComponent<Rigidbody>().AddRelativeForce(new Vector3(0, throwY, throwZ));
@@ -53,13 +53,13 @@ public class WeaponSystem : MonoBehaviour
         _pistolIsActive = false;
         pistol.SetActive(false);
         
-        grenadeIsActive = true;
+        _grenadeIsActive = true;
         grenade.SetActive(true);
     }
 
     public void DrawPistol()
     {
-        grenadeIsActive = false;
+        _grenadeIsActive = false;
         grenade.SetActive(false);
 
         _pistolIsActive = true;
@@ -69,15 +69,15 @@ public class WeaponSystem : MonoBehaviour
 
     IEnumerator GrenadeThrowDelay() // Delays for the different guns
     {
-        IsAvailable = false;
+        _isAvailable = false;
         yield return new WaitForSeconds(0.6f);
-        IsAvailable = true;
+        _isAvailable = true;
     }
     IEnumerator ShootingDelay()
     {
-        IsAvailable = false;
+        _isAvailable = false;
         yield return new WaitForSeconds(0.2f);
-        IsAvailable = true;
+        _isAvailable = true;
     }
     
 }   

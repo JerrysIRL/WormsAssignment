@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class GrenadeProjectile : MonoBehaviour
 {
-    private bool collided = false;
-    private int grenadeDamage = 30;
+    private bool _collided = false;
+    private int _grenadeDamage = 30;
 
 
     private void OnCollisionEnter(Collision collision)
@@ -18,16 +18,16 @@ public class GrenadeProjectile : MonoBehaviour
 
     private void CheckForPlayers() // function creates a sphere which checks if player was withing a blast radius, if yes DealDamage
     {
-        if (collided == false)
+        if (_collided == false)
         {
-            collided = true;
+            _collided = true;
             Collider[] colliders = Physics.OverlapSphere(transform.position, 5f);
             foreach (Collider c in colliders)
             {
                 Destructuble worm = c.GetComponent<Destructuble>();
                 if (c.gameObject.CompareTag("Enemy"))
                 {
-                    worm.DoDamage(grenadeDamage);
+                    worm.DoDamage(_grenadeDamage);
                 }
             }
             Destroy(gameObject);
